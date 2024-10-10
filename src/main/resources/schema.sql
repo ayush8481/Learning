@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS Student;
 CREATE TABLE student
 (
-    id VARCHAR,
+    id INT AUTO_INCREMENT  PRIMARY KEY,
     NAME   VARCHAR,
     age    VARCHAR,
     gender VARCHAR

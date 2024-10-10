@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/student")
 public class StudentController {
 
     @Autowired
     private StudentService studentService;
 
-    @GetMapping({"/student","/student/{id}"})
+    @GetMapping({"/getStudent","/getStudent/{id}"})
     public ResponseEntity<List<Student>> getStudents(@PathVariable(required = false) Long id,
                                                      @RequestParam(required = false, name="size", defaultValue = "10") Integer size) {
         List<Student> listStudent = studentService.getStudent(id);
