@@ -19,12 +19,17 @@ public class StudentController {
     @GetMapping({"/getStudent","/getStudent/{id}"})
     public ResponseEntity<List<Student>> getStudents(@PathVariable(required = false) Long id,
                                                      @RequestParam(required = false, name="size", defaultValue = "10") Integer size) {
-        List<Student> listStudent = studentService.getStudent(id);
 
-        if(size!=0 && listStudent.size() > size)
-           return new ResponseEntity<>(listStudent.subList(0,size), HttpStatus.OK);
-        else
-           return new ResponseEntity<>(listStudent, HttpStatus.OK);
+        try{
+            List<Student> listStudent = studentService.getStudent(id);
+
+            if(size!=0 && listStudent.size() > size)
+                return new ResponseEntity<>(listStudent.subList(0,size), HttpStatus.OK);
+            else
+                return new ResponseEntity<>(listStudent, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping({"/addStudent"})

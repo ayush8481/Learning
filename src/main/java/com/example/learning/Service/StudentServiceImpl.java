@@ -23,6 +23,13 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> getStudent(Long id) {
 
+        //Adding this block for @AfterThrowing Advice.
+        /*try {
+            int i = 1 / 0;
+        } catch (Exception e) {
+            throw e;
+        }*/
+
         if(id!=null) {
            Optional<Student> s =  studentRepo.findById(id);
            if(s.isPresent()){
