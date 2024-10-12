@@ -3,7 +3,11 @@ package com.example.learning.Service;
 import com.example.learning.Repository.StudentRepo;
 import com.example.learning.Entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +25,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudent(Long id) {
+    public List<Student> getStudent(Long id, Pageable pageable) {
 
         //Adding this block for @AfterThrowing Advice.
         /*try {
@@ -29,14 +33,13 @@ public class StudentServiceImpl implements StudentService {
         } catch (Exception e) {
             throw e;
         }*/
-
         if(id!=null) {
            Optional<Student> s =  studentRepo.findById(id);
            if(s.isPresent()){
                return s.stream().toList();
            }
         }
-        return studentRepo.findAll();
+        return studentRepo.findAll(pageable).stream().toList();
     }
 
     @Override
